@@ -12,7 +12,7 @@ class Coordinator : public QObject
 public:
     explicit Coordinator(WebBridge* bridge, QObject *parent = nullptr);
 public slots:
-    QVariant processWeb(const QMap<QString, QVariant> &input);
+    void processWeb(const QMap<QString, QVariant> &input);
     void processMonitor(const UdevMonitor::UpdateEvent &input);
 
 private:

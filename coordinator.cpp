@@ -69,7 +69,7 @@ void Coordinator::processWeb(const QVariantMap &input)
             linked_device = linked_device->next;
             usbip_devices_free(current_device);
         }
-        bridge->toWeb(QVariantMap({{"devices", devices}});
+        bridge->toWeb(QVariantMap({{"devices", devices}}));
         return;
     }
 
