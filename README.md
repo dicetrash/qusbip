@@ -21,21 +21,17 @@ A web developer wanting to help an open source project such as remote usb connec
 ### Future desires
 Automatic linux kernal module check and loading
 
-A multicast read
-
-A server side bind / unbind
-
-A polkit policy file for root run requirements
+* A multicast read
+* A server side bind / unbind
+* A polkit policy file for root run requirements
 
 
 ## Build and Install
 ### Required development librarys to build
-qmake
-libwrap (tcp-wrappers in arch)
-
-libusbip (usbip in arch)
-
-libqt5webengine5 (qt5-webengine in arch)
+* qmake / make
+* libwrap (tcp-wrappers in arch)
+* libusbip (usbip in arch)
+* libqt5webengine5 (qt5-webengine in arch)
 
 ### Build
 run `qmake && make` in the project ..
