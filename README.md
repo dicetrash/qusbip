@@ -7,13 +7,10 @@ This project is opened to any and all helpers, MRs of any amount are considered 
 ## Working
 The usbip tools that are exposed as items into the web side are
 
-attach
-
-detach
-
-port
-
-remote list
+* attach
+* detach
+* port
+* remote list
 
 ## Wanted
 A web developer wanting to help an open source project such as remote usb connections
