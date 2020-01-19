@@ -6,9 +6,13 @@ This project is opened to any and all helpers, MRs of any amount are considered 
 
 ## Working
 The usbip tools that are exposed as items into the web side are
+
 attach
+
 detach
+
 port
+
 remote list
 
 ## Wanted
@@ -16,8 +20,11 @@ A web developer wanting to help an open source project such as remote usb connec
 
 ### Future desires
 Automatic linux kernal module check and loading
+
 A multicast read
+
 A server side bind / unbind
+
 A polkit policy file for root run requirements
 
 
@@ -25,7 +32,9 @@ A polkit policy file for root run requirements
 ### Required development librarys to build
 qmake
 libwrap (tcp-wrappers in arch)
+
 libusbip (usbip in arch)
+
 libqt5webengine5 (qt5-webengine in arch)
 
 ### Build
