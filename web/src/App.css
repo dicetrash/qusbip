@@ -1,0 +1,9 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.setTab {
+    flex-grow: 1;
+}

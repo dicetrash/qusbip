@@ -1,3 +1,6 @@
 *.user
 *.o
 Makefile
+web/dist
+web/node_modules
+web/.vscode

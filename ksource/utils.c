@@ -12,6 +12,13 @@
 #include "utils.h"
 #include <usbip/sysfs_utils.h>
 
+int lowest(int i1, int i2) {
+    if (i1 > i2) {
+        return i2;
+    }
+    return i1;
+}
+
 int modify_match_busid(char *busid, int add)
 {
 	char attr_name[] = "match_busid";

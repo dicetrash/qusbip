@@ -29,45 +29,26 @@
 #include <usbip/usbip_common.h>
 
 #include "usbip_network.h"
+#include "utils.h"
+
+#define MAX_INTERFACES 10
 
 struct usbip_external_list {
     char* product_name;
     char* path;
-    char* class_name;
     char* busid;
+    char* interfaces[MAX_INTERFACES];
+    int num_interfaces;
     struct usbip_external_list* next;
 };
 
-/*
-struct  usbip_port_list(void)
-{
-
-    for (i= 0; i < vhci_driver->nports; i++) {
-        current = (struct usbip_devices*)malloc(sizeof(struct usbip_devices));
-        struct usbip_imported_device current_device = vhci_driver->idev[i];
-        current->port = current_device.port;
-        current->devid = current_device.devid;
-        current->busnum = current_device.busnum;
-        current->devnum = current_device.devnum;
-        if (last != NULL) {
-            last->next = current;
-        }
-        if (first == NULL) {
-            first = current;
-        }
-        last = current;
-    }
-
-    usbip_vhci_driver_close();
-
-    return first;
-};
-*/
-
 void usbip_external_list_free(struct usbip_external_list* device) {
+    int interface_count = lowest(device->num_interfaces, MAX_INTERFACES);
+    for(int i = 0; i < interface_count; i++) {
+        free(device->interfaces[i]);
+    }
     free(device->product_name);
     free(device->busid);
-    free(device->class_name);
     free(device->path);
     free(device);
 };
@@ -126,7 +107,14 @@ static struct usbip_external_list* get_exported_devices(char *host, int sockfd)
 		usbip_names_get_product(product_name, sizeof(product_name),
 					udev.idVendor, udev.idProduct);
 
-        for (j = 0; j < udev.bNumInterfaces; j++) {
+        current = (struct usbip_external_list*)malloc(sizeof(struct usbip_external_list));
+        current->next = NULL;
+        current->path = strdup(udev.path);
+        current->busid = strdup(udev.busid);
+        current->product_name = strdup(product_name);
+        current->num_interfaces = lowest(udev.bNumInterfaces, MAX_INTERFACES);
+
+        for (j = 0; j < udev.bNumInterfaces && j < 10; j++) {
             rc = usbip_net_recv(sockfd, &uintf, sizeof(uintf));
             if (rc < 0) {
                 err("usbip_net_recv failed: usbip_usb_intf[%d]",
@@ -140,21 +128,15 @@ static struct usbip_external_list* get_exported_devices(char *host, int sockfd)
                     uintf.bInterfaceClass,
                     uintf.bInterfaceSubClass,
                     uintf.bInterfaceProtocol);
-
-            current = (struct usbip_external_list*)malloc(sizeof(struct usbip_external_list));
-            current->next = NULL;
-            current->path = strdup(udev.path);
-            current->class_name = strdup(class_name);
-            current->busid = strdup(udev.busid);
-            current->product_name = strdup(product_name);
-            if (last != NULL) {
-                last->next = current;
-            }
-            if (first == NULL) {
-                first = current;
-            }
-            last = current;
+            current->interfaces[j] = strdup(class_name);
         }
+        if (last != NULL) {
+            last->next = current;
+        }
+        if (first == NULL) {
+            first = current;
+        }
+        last = current;
 	}
 
     return first;

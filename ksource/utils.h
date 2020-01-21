@@ -9,5 +9,7 @@
 
 int modify_match_busid(char *busid, int add);
 
+int lowest(int i1, int i2);
+
 #endif /* __UTILS_H */
 

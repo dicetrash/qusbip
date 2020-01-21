@@ -20,7 +20,7 @@ Window {
     WebEngineView {
         id: view
         anchors.fill: parent
-        url:"qrc:/local.html"
+        url:"qrc:/web/dist/index.html"
         webChannel: channel
     }
 }

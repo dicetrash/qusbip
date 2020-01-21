@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>local.html</file>
+        <file>web/dist/main.js</file>
+        <file>fail.qml</file>
+        <file>web/dist/index.html</file>
     </qresource>
 </RCC>

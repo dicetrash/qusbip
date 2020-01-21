@@ -16,8 +16,6 @@ extern "C" {
     #include "ksource/usbip_attach.c"
     #include "ksource/usbip_port_list.c"
     #include "ksource/usbip_list.c"
-    // #include "ksource/usbip_bind.c"
-    // #include "ksource/usbip_unbind.c"
 }
 
 Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), bridge(bridge), monitor()
@@ -30,6 +28,8 @@ Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), 
         err("failed to open %s", USBIDS_FILE);
 }
 
+// I decided to go with void because I attempted callback
+//  through channel and it was always null in js world.
 void Coordinator::processWeb(const QVariantMap &input)
 {
     auto process = input["process"].toString();
@@ -63,7 +63,14 @@ void Coordinator::processWeb(const QVariantMap &input)
                 {"devid", linked_device->devid},
                 {"devnum", linked_device->devnum},
                 {"busnum", linked_device->busnum},
-                {"product_name", linked_device->product_name}
+                {"product_name", linked_device->product_name},
+                {"busid", linked_device->udev.busid},
+                {"path", linked_device->udev.path},
+                {"remote", QVariantMap({
+                    {"host", linked_device->host},
+                    {"port", linked_device->remote_port},
+                    {"busid", linked_device->remote_busid}
+                })}
             }));
             current_device = linked_device;
             linked_device = linked_device->next;
@@ -79,17 +86,21 @@ void Coordinator::processWeb(const QVariantMap &input)
         usbip_external_list* linked_device = usbip_external_devices((char*)host.c_str());
         usbip_external_list* current_device = nullptr;
         while(linked_device != nullptr) {
+            QVariantList interfaces;
+            for(int i = 0; i < linked_device->num_interfaces; i++) {
+                interfaces.push_back(linked_device->interfaces[i]);
+            }
             devices.push_back(QVariantMap({
                 {"product_name", linked_device->product_name},
                 {"busid", linked_device->busid},
-                {"class_name", linked_device->class_name},
                 {"path", linked_device->path},
+                {"interfaces", interfaces}
             }));
             current_device = linked_device;
             linked_device = linked_device->next;
             usbip_external_list_free(current_device);
         }
-         bridge->toWeb(QVariantMap({
+        bridge->toWeb(QVariantMap({
             {"devices", devices},
             {"host", input["host"]}
         }));

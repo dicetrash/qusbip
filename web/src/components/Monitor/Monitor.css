@@ -1,0 +1,19 @@
+.monitor {
+  max-height: 300px;
+  margin: 0px;
+  padding: 2px;
+  border: 1px solid #444;
+  overflow-y: auto;
+  min-height: 48px;
+}
+
+.clearBtn {
+  position: fixed;
+  display: none;
+  bottom: 20px;
+  right: 20px;
+}
+
+.clearBtn.active {
+  display: block;
+}

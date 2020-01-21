@@ -14,7 +14,6 @@
 #include <netdb.h>
 #include <netinet/tcp.h>
 #include <unistd.h>
-//#include "../config.h"
 
 /* binary-coded decimal version number */
 #define USBIP_VERSION 0x00000111

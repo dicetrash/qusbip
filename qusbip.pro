@@ -36,6 +36,8 @@ HEADERS += \
     udevmonitor.h \
     webbridge.h
 
+QTWEBENGINE_REMOTE_DEBUGGING=true
+
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += libudev
 
