@@ -1,15 +1,16 @@
 FROM archlinux:latest
 
 RUN pacman -Sy \
-  npm usbip qt5-base qt5-webengine gcc systemd-libs pkg-config make tcp-wrappers python \
+  npm usbip qt5-base qt5-webengine gcc systemd-libs pkg-config make tcp-wrappers python git base-devel \
   --noconfirm
-
-WORKDIR /opt
-
-COPY . .
+  
 COPY ksource/usbip_common.h /usr/include/usbip/usbip_common.h
 
-RUN npm --prefix web ci
-RUN npm run --prefix web build
-RUN qmake
-RUN make
+RUN useradd -m user
+RUN chmod a+rwx /opt
+
+USER user
+WORKDIR /opt
+
+COPY builds/PKGBUILD .
+RUN makepkg
