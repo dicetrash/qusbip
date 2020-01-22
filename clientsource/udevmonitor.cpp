@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "udevmonitor.h"
 #include <QSocketNotifier>
 #include <QException>
 #include <libudev.h>
+#include "udevmonitor.h"
 
 UdevMonitor::UdevMonitor():
     context(udev_new()),

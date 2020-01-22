@@ -162,7 +162,7 @@ static int query_import_device(int sockfd, char *busid)
 	return import_device(sockfd, &reply.udev);
 }
 
-int usbip_attach(char *host, char *busid)
+int usbipc_attach(char *host, char *busid)
 {
 	int sockfd;
 	int rc;

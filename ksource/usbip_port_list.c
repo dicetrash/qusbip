@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 #include "utils.h"
-#include "usbip_device_list.h"
+#include "debug_macros.h"
 
 #define MAX_INTERFACES 10
 

@@ -2,9 +2,7 @@
 #ifndef WEBBRIDGE_H
 #define WEBBRIDGE_H
 
-#include <QQmlEngine>
 #include <QObject>
-#include <QJSEngine>
 #include <QVariantMap>
 
 class WebBridge : public QObject

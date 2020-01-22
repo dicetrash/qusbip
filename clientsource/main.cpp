@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <webbridge.h>
-#include <coordinator.h>
 #include <QProcess>
+#include "webbridge.h"
+#include "coordinator.h"
 
 #define usbip_use_debug true
 
@@ -16,12 +16,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     if (modprobeFail) {
-        engine.load(QUrl(QStringLiteral("qrc:/fail.qml")));
+        engine.load(QUrl(QStringLiteral("qrc:/clientsource/fail.qml")));
         return app.exec();
     }
 
     qmlRegisterType<WebBridge>("WebBridge", 1, 0, "Bridge");
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/clientsource/main.qml")));
     Coordinator coord(WebBridge::lastInstance());
 
     return app.exec();

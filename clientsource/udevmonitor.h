@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #ifndef UDEVMONITOR_H
 #define UDEVMONITOR_H
+
 #include <QSocketNotifier>
-#include <QMap>
+#include <libudev.h>
 
 class UdevMonitor: public QObject
 {

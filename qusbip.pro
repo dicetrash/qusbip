@@ -3,19 +3,20 @@ QT += quick
 CONFIG += c++17
 CONFIG += warn_off
 
+INCLUDEPATH += $$PWD/ksource
+INCLUDEPATH += $$PWD/clientsource
+
 SOURCES += \
-        coordinator.cpp \
-        ksource/usbip_attach.c \
-        ksource/usbip_bind.c \
-        ksource/usbip_detach.c \
         ksource/usbip_list.c \
         ksource/usbip_network.c \
         ksource/usbip_port_list.c \
-        ksource/usbip_unbind.c \
+        ksource/usbipc_attach.c \
+        ksource/usbipc_detach.c \
         ksource/utils.c \
-        main.cpp \
-        udevmonitor.cpp \
-        webbridge.cpp
+        clientsource/coordinator.cpp \
+        clientsource/main.cpp \
+        clientsource/udevmonitor.cpp \
+        clientsource/webbridge.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,19 +25,19 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+QTQUICK_COMPILER_SKIPPED_RESOURCES += qml.qrc
+
 DISTFILES += \
     LICENSE \
     README.md
 
 HEADERS += \
-    coordinator.h \
-    ksource/usbip_device_list.h \
-    ksource/usbip_network.h \
     ksource/utils.h \
-    udevmonitor.h \
-    webbridge.h
-
-QTWEBENGINE_REMOTE_DEBUGGING=true
+    ksource/usbip_network.h \
+    ksource/debug_macros.h \
+    clientsource/coordinator.h \
+    clientsource/udevmonitor.h \
+    clientsource/webbridge.h
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += libudev

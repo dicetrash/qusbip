@@ -6,16 +6,13 @@
  * Modified By
  * 	2020 dice14u - striped console print to make it exportable
  */
-
+// this has to stay here on top because kernel vrsn doesn't compile
+#include "usbip_network.h"
 #include <usbip/vhci_driver.h>
-#include <libudev.h>
-#include <ctype.h>
 #include <limits.h>
 #include <stdbool.h>
-#include <unistd.h>
-#include <stdio.h>
 
-int usbip_detach(uint8_t port)
+int usbipc_detach(uint8_t port)
 {
     struct usbip_imported_device *idev;
     int ret = usbip_vhci_driver_open();
@@ -29,8 +26,8 @@ int usbip_detach(uint8_t port)
         if (idev->port == port) {
             found = true;
             if (idev->status != VDEV_ST_NULL)
-                break;
-            ret = 1; // this is success
+                break; // this is success
+            ret = 1; // device already detached .. soo success
             goto call_driver_close;
         }
     }

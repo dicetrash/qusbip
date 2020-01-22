@@ -1,21 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "coordinator.h"
-#include <QTextStream>
 #include "udevmonitor.h"
-#include <QVariant>
-#include <algorithm>
-#include <QVariantMap>
-#include <QVariantList>
-#include <QMapIterator>
-#include <QJsonDocument>
-#include <QDebug>
-#include <type_traits>
 
 extern "C" {
-    #include "ksource/usbip_detach.c"
-    #include "ksource/usbip_attach.c"
-    #include "ksource/usbip_port_list.c"
-    #include "ksource/usbip_list.c"
+    #include "usbipc_detach.c"
+    #include "usbipc_attach.c"
+    #include "usbip_port_list.c"
+    #include "usbip_list.c"
 }
 
 Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), bridge(bridge), monitor()
@@ -38,7 +29,7 @@ void Coordinator::processWeb(const QVariantMap &input)
         bool ok;
         auto port(input["port"].toInt(&ok));
         if (ok) {
-            usbip_detach(port);
+            usbipc_detach(port);
         }
         return;
     }
@@ -48,7 +39,7 @@ void Coordinator::processWeb(const QVariantMap &input)
         auto busid(input["busid"].toString().toStdString());
 
         if (host.compare("") > 0 && busid.compare("") > 0) {
-            usbip_attach((char*)host.c_str(), (char*)busid.c_str());
+            usbipc_attach((char*)host.c_str(), (char*)busid.c_str());
         }
         return;
     }
