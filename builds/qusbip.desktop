@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=qUSBIp
 Categories=Utility;
-Exec=/usr/bin/qusbip
+Exec=pkexec /usr/bin/qusbip
 Icon=media-removable
 Terminal=false
 Type=Application
