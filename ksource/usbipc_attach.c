@@ -27,6 +27,8 @@
 #include "usbip_network.h"
 
 #define MAX_BUFF 100
+#define VHCI_DIR_PERMISSION 0700
+
 static int record_connection(char *host, char *port, char *busid, int rhport)
 {
 	int fd;
@@ -34,7 +36,7 @@ static int record_connection(char *host, char *port, char *busid, int rhport)
 	char buff[MAX_BUFF+1];
 	int ret;
 
-	ret = mkdir(VHCI_STATE_PATH, 0700);
+	ret = mkdir(VHCI_STATE_PATH, VHCI_DIR_PERMISSION);
 	if (ret < 0) {
 		/* if VHCI_STATE_PATH exists, then it better be a directory */
 		if (errno == EEXIST) {
@@ -153,7 +155,7 @@ static int query_import_device(int sockfd, char *busid)
 	PACK_OP_IMPORT_REPLY(0, &reply);
 
 	/* check the reply */
-	if (strncmp(reply.udev.busid, busid, SYSFS_BUS_ID_SIZE)) {
+	if (strncmp(reply.udev.busid, busid, SYSFS_BUS_ID_SIZE) != 0) {
 		err("recv different busid %s", reply.udev.busid);
 		return -1;
 	}

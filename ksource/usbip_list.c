@@ -14,6 +14,7 @@
 #include "utils.h"
 
 #define MAX_INTERFACES 10
+#define NAME_SIZES 100
 
 struct usbip_external_list {
     char* product_name;
@@ -40,8 +41,8 @@ static struct usbip_external_list* get_exported_devices(char *host, int sockfd)
     struct usbip_external_list* last = NULL;
     struct usbip_external_list* current = NULL;
     struct usbip_external_list* first = NULL;
-	char product_name[100];
-	char class_name[100];
+        char product_name[NAME_SIZES];
+        char class_name[NAME_SIZES];
 	struct op_devlist_reply reply;
 	uint16_t code = OP_REP_DEVLIST;
 	struct usbip_usb_device udev;
@@ -96,7 +97,7 @@ static struct usbip_external_list* get_exported_devices(char *host, int sockfd)
         current->product_name = strdup(product_name);
         current->num_interfaces = lowest(udev.bNumInterfaces, MAX_INTERFACES);
 
-        for (j = 0; j < udev.bNumInterfaces && j < 10; j++) {
+        for (j = 0; j < current->num_interfaces; j++) {
             rc = usbip_net_recv(sockfd, &uintf, sizeof(uintf));
             if (rc < 0) {
                 err("usbip_net_recv failed: usbip_usb_intf[%d]",

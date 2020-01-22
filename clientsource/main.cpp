@@ -5,8 +5,6 @@
 #include "webbridge.h"
 #include "coordinator.h"
 
-#define usbip_use_debug true
-
 int main(int argc, char *argv[])
 {
     qputenv("QTWEBENGINE_DISABLE_SANDBOX", "1"); // this app will probably run as root

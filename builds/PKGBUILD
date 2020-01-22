@@ -1,0 +1,25 @@
+pkgname=qusbip
+pkgver=0_1
+pkgrel=1
+pkgdesc="A GUI for connecting usb/ip devices from a remote host"
+license=('GPL2')
+arch=('x86_64')
+depends=('usbip' 'qt5-webengine')
+makedepends=('usbip' 'qt5-base' 'qt5-webengine' 'gcc' 'systemd-libs' 'pkg-config' 'tcp-wrappers' 'python')
+source=('qusbip::git+https://github.com/dicetrash/qusbip.git')
+md5sums=('SKIP')
+
+build() {
+	cd "${srcdir}/${pkgname}"
+	npm --prefix web ci
+	npm run --prefix web build
+	qmake
+	make
+}
+
+package() {
+	mkdir -p ${pkgdir}/usr/bin
+	cp "${srcdir}/qusbip/qusbip" "${pkgdir}/usr/bin/"
+	cp "${srcdir}/builds/org.qusbip.qusbip.policy" "${pkgdir}/usr/share/polkit-1/actions/"
+	cp "${srcdir}/builds/qusbip.desktop" "${pkgdir}/usr/share/applications/"
+}

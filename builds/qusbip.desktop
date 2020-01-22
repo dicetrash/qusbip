@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=qUSBIp
+Categories=Utility;
+Exec=/usr/bin/qusbip
+Icon=media-removable
+Terminal=false
+Type=Application
+Comment=USB/IP Gui for connecting to remote host

@@ -18,7 +18,7 @@ public:
     };
 
 signals:
-    void update(UpdateEvent hash);
+    void update(UdevMonitor::UpdateEvent hash);
 
 private slots:
     void process();
