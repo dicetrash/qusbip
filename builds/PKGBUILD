@@ -10,7 +10,7 @@ source=('qusbip::git+https://github.com/dicetrash/qusbip.git')
 md5sums=('SKIP')
 
 build() {
-	cd "${srcdir}/${pkgname}"
+	cd ${srcdir}/${pkgname}
 	npm --prefix web ci
 	npm run --prefix web build
 	qmake
@@ -18,8 +18,11 @@ build() {
 }
 
 package() {
+	cd ${srcdir}/${pkgname}
 	mkdir -p ${pkgdir}/usr/bin
-	cp "${srcdir}/qusbip/qusbip" "${pkgdir}/usr/bin/"
-	cp "${srcdir}/builds/org.qusbip.qusbip.policy" "${pkgdir}/usr/share/polkit-1/actions/"
-	cp "${srcdir}/builds/qusbip.desktop" "${pkgdir}/usr/share/applications/"
+	mkdir -p ${pkgdir}/usr/share/polkit-1/actions
+	mkdir -p ${pkgdir}/usr/share/applications
+	cp qusbip ${pkgdir}/usr/bin/
+	cp builds/org.qusbip.qusbip.policy ${pkgdir}/usr/share/polkit-1/actions/
+	cp builds/qusbip.desktop ${pkgdir}/usr/share/applications/
 }
