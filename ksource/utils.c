@@ -10,7 +10,7 @@
 
 #include "usbip_common.h"
 #include "utils.h"
-#include <usbip/sysfs_utils.h>
+#include "sysfs_utils.h"
 
 int lowest(int i1, int i2) {
     if (i1 > i2) {
