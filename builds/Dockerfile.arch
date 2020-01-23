@@ -1,10 +1,8 @@
 FROM archlinux:latest
 
 RUN pacman -Sy \
-  npm usbip qt5-base qt5-webengine gcc systemd-libs pkg-config make tcp-wrappers python git base-devel \
+  npm qt5-base qt5-webengine gcc systemd-libs pkg-config make tcp-wrappers python git base-devel \
   --noconfirm
-  
-COPY ksource/usbip_common.h /usr/include/usbip/usbip_common.h
 
 RUN useradd -m user
 RUN chmod a+rwx /opt

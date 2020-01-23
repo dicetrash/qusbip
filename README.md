@@ -46,6 +46,10 @@ I generally just use QT creator (of which I am of course unaffiliated) to debug 
 to kind of quickly iterate across the UI side.  I picked using webengine in hopes to open the door for more people to help.
 My hope is if you are a C++ developer this helps you learn some React web and if you are a web dev it inspires you to learn some C++/Qt.
 
+interesting commands I run
+`docker build -f builds/Dockerfile.arch -t usbqt .`
+
+
 ## Copying and Using
 This project uses portions of linux kernel code with heavy modification
 I am unaffiliated with basically anyone and also sort of wish to remain anonymous.

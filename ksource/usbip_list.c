@@ -9,7 +9,7 @@
  * 	2020 dice14u - striped console and made it return a result for remote list
  */
 #include <netdb.h>
-#include <usbip/usbip_common.h>
+#include "usbip_common.h"
 #include "usbip_network.h"
 #include "utils.h"
 

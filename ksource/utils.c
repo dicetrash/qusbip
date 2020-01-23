@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <usbip/usbip_common.h>
+#include "usbip_common.h"
 #include "utils.h"
 #include <usbip/sysfs_utils.h>
 

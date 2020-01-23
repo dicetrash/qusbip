@@ -8,7 +8,7 @@
  */
 // this has to stay here on top because kernel vrsn doesn't compile
 #include "usbip_network.h"
-#include <usbip/vhci_driver.h>
+#include "vhci_driver.h"
 #include <limits.h>
 #include <stdbool.h>
 

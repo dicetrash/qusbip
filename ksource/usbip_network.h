@@ -13,7 +13,7 @@
 #include <sys/types.h>
 
 #include <stdint.h>
-#include <usbip/usbip_common.h>
+#include "usbip_common.h"
 
 extern int usbip_port;
 extern char *usbip_port_string;

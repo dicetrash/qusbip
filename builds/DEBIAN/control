@@ -1,0 +1,9 @@
+Package: qusbip
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 1024
+Maintainer: dicetrash
+Description: A GUI client for attaching usb over ip between linux devices.

@@ -7,8 +7,8 @@
  * 	2020 dice14u - striped console and made it return a result
  */
 
-#include <usbip/vhci_driver.h>
-#include <usbip/usbip_common.h>
+#include "vhci_driver.h"
+#include "usbip_common.h"
 #include <limits.h>
 #include <libudev.h>
 #include <stdint.h>

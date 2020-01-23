@@ -21,9 +21,9 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include <usbip/usbip_common.h>
-#include <usbip/vhci_driver.h>
-#include <usbip/usbip_common.h>
+#include "usbip_common.h"
+#include "vhci_driver.h"
+#include "usbip_common.h"
 #include "usbip_network.h"
 
 #define MAX_BUFF 100
