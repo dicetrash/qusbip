@@ -22,7 +22,7 @@
 #include <tcpd.h>
 #endif
 
-#include <usbip/usbip_common.h>
+#include "usbip_common.h"
 #include "usbip_network.h"
 
 int usbip_port = 3240;
