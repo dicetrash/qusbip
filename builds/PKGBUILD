@@ -5,7 +5,7 @@ pkgdesc="A GUI for connecting usb/ip devices from a remote host"
 license=('GPL2')
 arch=('x86_64')
 depends=('usbip' 'qt5-webengine')
-makedepends=('usbip' 'qt5-base' 'qt5-webengine' 'gcc' 'systemd-libs' 'pkg-config' 'tcp-wrappers' 'python')
+makedepends=('qt5-base' 'qt5-webengine' 'gcc' 'systemd-libs' 'pkg-config' 'tcp-wrappers' 'python')
 source=('qusbip::git+https://github.com/dicetrash/qusbip.git')
 md5sums=('SKIP')
 
