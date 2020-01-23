@@ -48,7 +48,7 @@ My hope is if you are a C++ developer this helps you learn some React web and if
 
 interesting commands I run
 `docker build -f builds/Dockerfile.arch -t usbqt .`
-
+`docker run -it -v $(pwd):/mnt debian:sid /bin/bash`
 
 ## Copying and Using
 This project uses portions of linux kernel code with heavy modification

@@ -6,4 +6,26 @@ RUN apt-get install -y \
  libqt5webenginewidgets5 \
  pkg-config \
  qt5-qmake \
- libdevel
+ libsystemd-dev \
+ qt5-default \
+ libudev-dev \
+ qtdeclarative5-dev \
+ libwrap0-dev \
+ npm
+
+WORKDIR /opt
+COPY . .
+
+RUN npm --prefix web ci
+RUN npm run --prefix web build
+RUN qmake
+RUN make
+RUN mkdir -p pkgdir/usr/bin
+RUN mkdir -p pkgdir/usr/share/polkit-1/actions
+RUN mkdir -p pkgdir/usr/share/applications
+RUN cp -r builds/DEBIAN pkgdir/
+RUN cp qusbip pkgdir/usr/bin/
+RUN cp builds/org.qusbip.qusbip.policy pkgdir/usr/share/polkit-1/actions/
+RUN cp builds/qusbip.desktop pkgdir/usr/share/applications/
+RUN dpkg-deb -b pkgdir
+RUN mv pkgdir.deb qusbip.deb
