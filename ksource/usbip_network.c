@@ -18,9 +18,7 @@
 /* binary-coded decimal version number */
 #define USBIP_VERSION 0x00000111
 
-#ifdef HAVE_LIBWRAP
 #include <tcpd.h>
-#endif
 
 #include "usbip_common.h"
 #include "usbip_network.h"

@@ -11,7 +11,13 @@ Build-Depends:
  build-essential
  libqt5webenginewidgets5
  pkg-config
+ qt5-default
  libudev-dev
  qtdeclarative5-dev
  libwrap0-dev
  npm
+Depends:
+ policykit-1
+ libudev1
+ qml-module-qtwebengine
+ qml-module-qtwebchannel

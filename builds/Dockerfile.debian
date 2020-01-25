@@ -6,6 +6,7 @@ RUN apt-get install -y \
  libqt5webenginewidgets5 \
  pkg-config \
  libudev-dev \
+ qt5-default \
  qtdeclarative5-dev \
  libwrap0-dev \
  npm
@@ -22,6 +23,7 @@ RUN mkdir -p pkgdir/usr/bin
 RUN mkdir -p pkgdir/usr/share/polkit-1/actions
 RUN mkdir -p pkgdir/usr/share/applications
 RUN cp -r builds/DEBIAN pkgdir/
+RUN cp LICENSE pkgdir/DEBIAN
 RUN cp qusbip pkgdir/usr/bin/
 RUN cp builds/org.qusbip.qusbip.policy pkgdir/usr/share/polkit-1/actions/
 RUN cp builds/qusbip.desktop pkgdir/usr/share/applications/
