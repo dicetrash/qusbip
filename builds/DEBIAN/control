@@ -3,11 +3,12 @@ Version: 1.0
 Section: custom
 Priority: optional
 Architecture: all
+Files: *
+Copyright: 2020 dicetrash
 License: GPL-2+
 Essential: no
 Installed-Size: 1024
 Maintainer: dicetrash
-Description: A GUI client for attaching usb over ip between linux devices.
 Build-Depends:
  build-essential
  libqt5webenginewidgets5
@@ -17,4 +18,5 @@ Build-Depends:
  qtdeclarative5-dev
  libwrap0-dev
  npm
-Depends: policykit-1, libudev1, qml-module-qtwebengine, qml-module-qtwebchannel, libqt5gui5
+Depends: policykit-1, libudev1, qml-module-qtwebengine, qml-module-qtwebchannel, libqt5gui5, qml-module-qtquick-window2
+Description: A GUI client for attaching usb over ip between linux devices.
