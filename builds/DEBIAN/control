@@ -7,3 +7,11 @@ Essential: no
 Installed-Size: 1024
 Maintainer: dicetrash
 Description: A GUI client for attaching usb over ip between linux devices.
+Build-Depends:
+ build-essential
+ libqt5webenginewidgets5
+ pkg-config
+ libudev-dev
+ qtdeclarative5-dev
+ libwrap0-dev
+ npm

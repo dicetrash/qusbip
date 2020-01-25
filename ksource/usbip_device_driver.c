@@ -14,6 +14,7 @@
 #include <linux/usb/ch9.h>
 
 #include <unistd.h>
+#include "list.h"
 
 #include "usbip_host_common.h"
 #include "usbip_device_driver.h"
@@ -128,6 +129,8 @@ static int is_my_device(struct udev_device *dev)
 	driver = udev_device_get_property_value(dev, "USB_UDC_NAME");
 	return driver != NULL && !strcmp(driver, USBIP_DEVICE_DRV_NAME);
 }
+
+
 
 static int usbip_device_driver_open(struct usbip_host_driver *hdriver)
 {

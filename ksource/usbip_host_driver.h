@@ -12,7 +12,6 @@
 
 #include <stdint.h>
 #include "usbip_common.h"
-#include "list.h"
 #include "usbip_host_common.h"
 
 extern struct usbip_host_driver host_driver;

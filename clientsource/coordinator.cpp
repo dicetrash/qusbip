@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "coordinator.h"
 #include "udevmonitor.h"
+#include "config.h"
 
 extern "C" {
+    #include "usbip_common.h"
     #include "usbipc_detach.c"
     #include "usbipc_attach.c"
     #include "usbip_port_list.c"
@@ -15,8 +17,7 @@ Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), 
     connect(&monitor, &UdevMonitor::update, this, &Coordinator::processMonitor);
     // TODO: tell linux kernel lib owners this segv at second run
     // we will just make this a global once and never free it
-    if (usbip_names_init((char*)USBIDS_FILE))
-        err("failed to open %s", USBIDS_FILE);
+    usbip_names_init((char*)USBIDS_FILE);
 }
 
 // I decided to go with void because I attempted callback

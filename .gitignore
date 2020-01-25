@@ -1,5 +1,6 @@
 *.user
 *.o
+config.h
 Makefile
 web/dist
 web/node_modules

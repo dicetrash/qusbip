@@ -11,6 +11,7 @@ md5sums=('SKIP')
 
 build() {
 	cd ${srcdir}/${pkgname}
+	cp builds/arch_config.h config.h
 	npm --prefix web ci
 	npm run --prefix web build
 	qmake

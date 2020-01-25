@@ -14,8 +14,8 @@
 
 #include <stdint.h>
 #include <libudev.h>
+#include <list.h>
 #include <errno.h>
-#include "list.h"
 #include "usbip_common.h"
 #include "sysfs_utils.h"
 
@@ -50,36 +50,6 @@ struct usbip_exported_device {
 	struct list_head node;
 	struct usbip_usb_interface uinf[];
 };
-
-/* External API to access the driver */
-static inline int usbip_driver_open(struct usbip_host_driver *hdriver)
-{
-	if (!hdriver->ops.open)
-		return -EOPNOTSUPP;
-	return hdriver->ops.open(hdriver);
-}
-
-static inline void usbip_driver_close(struct usbip_host_driver *hdriver)
-{
-	if (!hdriver->ops.close)
-		return;
-	hdriver->ops.close(hdriver);
-}
-
-static inline int usbip_refresh_device_list(struct usbip_host_driver *hdriver)
-{
-	if (!hdriver->ops.refresh_device_list)
-		return -EOPNOTSUPP;
-	return hdriver->ops.refresh_device_list(hdriver);
-}
-
-static inline struct usbip_exported_device *
-usbip_get_device(struct usbip_host_driver *hdriver, int num)
-{
-	if (!hdriver->ops.get_device)
-		return NULL;
-	return hdriver->ops.get_device(hdriver, num);
-}
 
 /* Helper functions for implementing driver backend */
 int usbip_generic_driver_open(struct usbip_host_driver *hdriver);

@@ -23,16 +23,19 @@ Anyone willing to help by making MRs to improve the project.
 
 ## Build and Install
 ### Required development libraries to build
+depending on how you want to build it
 * qmake / make
 * libwrap (tcp-wrappers in arch)
 * libusbip (usbip in arch)
 * libqt5webengine5 (qt5-webengine in arch)
 
+or if you want a clean directory and environment
+* docker
+
 ### Build
-first is the web section
-run `cd web && npm ci && npm run build`
-then go back down to `cd ../` to the root checkout again and 
-run `qmake && make` in the project
+I have created build.sh that uses docker to build various different packages
+run it and follow prompt, the package should show up in the base checkout directory
+`build.sh`
 
 ### Install
 This project requires root to run (or a user capable of usbip commands)

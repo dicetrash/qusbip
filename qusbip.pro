@@ -3,6 +3,9 @@ QT += quick
 CONFIG += c++17
 CONFIG += warn_off
 
+QMAKE_CXXFLAGS += -O
+QMAKE_CFLAGS += -O
+
 INCLUDEPATH += $$PWD/ksource
 INCLUDEPATH += $$PWD/clientsource
 
@@ -39,6 +42,7 @@ DISTFILES += \
     README.md
 
 HEADERS += \
+    config.h \
     ksource/list.h \
     ksource/names.h \
     ksource/sysfs_utils.h \
@@ -48,7 +52,6 @@ HEADERS += \
     ksource/usbip_host_driver.h \
     ksource/utils.h \
     ksource/usbip_network.h \
-    ksource/debug_macros.h \
     clientsource/coordinator.h \
     clientsource/udevmonitor.h \
     clientsource/webbridge.h \

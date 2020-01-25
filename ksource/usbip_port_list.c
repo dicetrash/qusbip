@@ -14,7 +14,6 @@
 #include <stdint.h>
 
 #include "utils.h"
-#include "debug_macros.h"
 
 #define MAX_INTERFACES 10
 
@@ -102,6 +101,8 @@ static int read_record(int rhport, char *host, unsigned long host_len,
     return 0;
 }
 
+#define NI_MAXHOST 64
+#define NI_MAXSERV 20
 
 struct usbip_devices* usbip_port_list(void)
 {

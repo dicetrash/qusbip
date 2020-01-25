@@ -18,10 +18,6 @@
 #include <linux/usb/ch9.h>
 #include <linux/usbip.h>
 
-#ifndef USBIDS_FILE
-#define USBIDS_FILE "/usr/share/hwdata/usb.ids"
-#endif
-
 #ifndef VHCI_STATE_PATH
 #define VHCI_STATE_PATH "/var/run/vhci_hcd"
 #endif
@@ -61,7 +57,7 @@ extern int usbip_use_debug ;
 
 #define pr_fmt(fmt)	"%s: %s: " fmt "\n", PROGNAME
 #define dbg_fmt(fmt)	pr_fmt("%s:%d:[%s] " fmt), "debug",	\
-		        __FILE__, __LINE__, __func__
+			__FILE__, __LINE__, __func__
 
 #define err(fmt, args...)						\
 	do {								\
