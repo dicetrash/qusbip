@@ -39,9 +39,18 @@ run it and follow prompt, the package should show up in the base checkout direct
 
 ### Install
 The easiest install method is by package
-for hard core arch there is PKGBUILD
-for debian/ubuntu we have .deb
-and for arch prebuilt we have pkg.tar.xz
+
+for hard core arch there is:
+
+[PKGBUILD](https://github.com/dicetrash/qusbip/blob/master/builds/PKGBUILD)
+
+for debian/ubuntu we have:
+
+[qusbip.deb](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.deb)
+
+and for arch prebuilt we have:
+
+[qusbip.pkg.tar.xz](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.pkg.tar.xz)
 
 
 ### Developing
@@ -54,4 +63,8 @@ My hope is if you are a C++ developer this helps you learn some React web and if
 This project uses portions of linux kernel code with heavy modification
 I am unaffiliated with basically anyone and also sort of wish to remain anonymous.
 If any portion is not in complaince with license rules please just make an MR to fix it.
-This project is protected under GNU GPL v2 see the LICESE file in this project for more details.
+This project is protected under GNU GPL v2 see the [LICESE](https://github.com/dicetrash/qusbip/blob/master/LICENSE) file in this project for more details.
+
+## Acknowledgement
+I would like to thank the [QT team](https://www.qt.io/) for making a nice UI product
+and the [USB/IP](http://usbip.sourceforge.net/) team for making the usbip project that this uses
