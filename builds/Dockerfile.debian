@@ -12,10 +12,12 @@ RUN apt-get install -y \
  npm
 
 WORKDIR /opt
+COPY web/package.json web/package-lock.json web/
+RUN npm --prefix web ci
+
 COPY . .
 
 RUN cp builds/debian_config.h config.h
-RUN npm --prefix web ci
 RUN npm run --prefix web build
 RUN qmake
 RUN make

@@ -3,6 +3,7 @@ Version: 1.0
 Section: custom
 Priority: optional
 Architecture: all
+License: GPL-2+
 Essential: no
 Installed-Size: 1024
 Maintainer: dicetrash
@@ -16,8 +17,4 @@ Build-Depends:
  qtdeclarative5-dev
  libwrap0-dev
  npm
-Depends:
- policykit-1
- libudev1
- qml-module-qtwebengine
- qml-module-qtwebchannel
+Depends: policykit-1, libudev1, qml-module-qtwebengine, qml-module-qtwebchannel, libqt5gui5
