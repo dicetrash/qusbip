@@ -19,7 +19,7 @@ Anyone willing to help by making MRs to improve the project.
 * Automatic linux kernal module check and loading
 * A multicast send from the client.
 * A server daemon that runs bind / unbind that is discoverable by multicast and attached by client.
-* Platform build docker images for debian/redhat/arch/raspbian that includes policy kit.
+* Platform build docker images for redhat or raspbian.
 
 ## Build and Install
 ### Required development libraries to build
@@ -38,20 +38,17 @@ run it and follow prompt, the package should show up in the base checkout direct
 `build.sh`
 
 ### Install
-This project requires root to run (or a user capable of usbip commands)
-generally after build just
-`sudo qusbip` but of course kdesu or gksu work as alternatives
-The intent is to eventually make the .deb (debian/ubuntu) and PACKAGE (arch) files with policy kit and desktop service.
-If you are willing to help please make an MR, docker images that do this platform agnostic (or cross platform for raspberry pi) would be most appreciated.
+The easiest install method is by package
+for hard core arch there is PKGBUILD
+for debian/ubuntu we have .deb
+and for arch prebuilt we have pkg.tar.xz
+
 
 ### Developing
 I generally just use QT creator (of which I am of course unaffiliated) to debug the C/C++ side and vscode with `npm run start:dev` which runs a webpack server
 to kind of quickly iterate across the UI side.  I picked using webengine in hopes to open the door for more people to help.
 My hope is if you are a C++ developer this helps you learn some React web and if you are a web dev it inspires you to learn some C++/Qt.
 
-interesting commands I run
-`docker build -f builds/Dockerfile.arch -t usbqt .`
-`docker run -it -v $(pwd):/mnt debian:sid /bin/bash`
 
 ## Copying and Using
 This project uses portions of linux kernel code with heavy modification
