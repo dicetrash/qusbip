@@ -10,6 +10,7 @@ INCLUDEPATH += $$PWD/ksource
 INCLUDEPATH += $$PWD/clientsource
 
 SOURCES += \
+        clientsource/groupnotifier.cpp \
         ksource/names.c \
         ksource/sysfs_utils.c \
         ksource/usbip_common.c \
@@ -24,6 +25,7 @@ SOURCES += \
         ksource/utils.c \
         clientsource/coordinator.cpp \
         clientsource/main.cpp \
+        clientsource/groupnotifier.cpp \
         clientsource/udevmonitor.cpp \
         clientsource/webbridge.cpp \
         ksource/vhci_driver.c
@@ -52,6 +54,7 @@ HEADERS += \
     ksource/usbip_host_driver.h \
     ksource/utils.h \
     ksource/usbip_network.h \
+    clientsource/groupnotifier.h \
     clientsource/coordinator.h \
     clientsource/udevmonitor.h \
     clientsource/webbridge.h \
