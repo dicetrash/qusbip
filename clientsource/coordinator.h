@@ -3,7 +3,10 @@
 #define COORDINATOR_H
 
 #include <QObject>
+#include <QSettings>
+#include <QNetworkDatagram>
 #include "webbridge.h"
+#include "groupnotifier.h"
 #include "udevmonitor.h"
 
 class Coordinator : public QObject
@@ -14,10 +17,15 @@ public:
 public slots:
     void processWeb(const QMap<QString, QVariant> &input);
     void processMonitor(const UdevMonitor::UpdateEvent &input);
+    void sendHost(const QNetworkDatagram datagram);
 
 private:
+    GroupNotifier* getNotifier();
     WebBridge* bridge;
-    UdevMonitor monitor;
+    UdevMonitor monitor {};
+    bool nameInit {false};
+    QSettings settings {"AdvancedDynamicsDesign", "qusbip"};
+    GroupNotifier* notifier {nullptr};
 };
 
 #endif // COORDINATOR_H

@@ -11,13 +11,10 @@ extern "C" {
     #include "usbip_list.c"
 }
 
-Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), bridge(bridge), monitor()
+Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), bridge(bridge)
 {
     connect(bridge, &WebBridge::toApp, this, &Coordinator::processWeb);
     connect(&monitor, &UdevMonitor::update, this, &Coordinator::processMonitor);
-    // TODO: tell linux kernel lib owners this segv at second run
-    // we will just make this a global once and never free it
-    usbip_names_init((char*)USBIDS_FILE);
 }
 
 // I decided to go with void because I attempted callback
@@ -25,6 +22,13 @@ Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), 
 void Coordinator::processWeb(const QVariantMap &input)
 {
     auto process = input["process"].toString();
+
+    if (!nameInit) {
+        // TODO: tell linux kernel lib owners this segv at second run
+        // we will just make this a global once and never free
+        // TODO: restart on settings save or fix free
+        usbip_names_init(const_cast<char*>(settings.value("usbids", USBIDS_FILE).toString().toStdString().c_str()));
+    }
 
     if (0 == process.compare("detach")) {
         bool ok;
@@ -97,6 +101,28 @@ void Coordinator::processWeb(const QVariantMap &input)
             {"host", input["host"]}
         }));
     }
+    if (0 == process.compare("settings")) {
+        auto save = input["save"].toBool();
+        if (save) {
+            QMapIterator vals(input["settings"].toMap());
+            while(vals.hasNext()) {
+                vals.next();
+                settings.setValue(vals.key(), vals.value());
+            }
+        } else {
+            QVariantMap output;
+            for(auto key: settings.childKeys()) {
+                output.insert(key, settings.value(key));
+            }
+            bridge->toWeb({
+                {"process", "settings"},
+                {"settings", output}
+            });
+       }
+    }
+    if (0 == process.compare("find")) {
+       getNotifier()->find();
+    }
 }
 
 void Coordinator::processMonitor(const UdevMonitor::UpdateEvent &input)
@@ -107,4 +133,25 @@ void Coordinator::processMonitor(const UdevMonitor::UpdateEvent &input)
         {"action", input.action},
         {"device", input.device}
     });
+}
+
+void Coordinator::sendHost(const QNetworkDatagram datagram)
+{
+  bridge->toWeb({
+    {"process", "hostFound"},
+    {"data", datagram.data()},
+    {"host", datagram.senderAddress().toIPv4Address()}
+  });
+}
+
+GroupNotifier *Coordinator::getNotifier()
+{
+  if (notifier == nullptr) {
+      const qint16 hostPort = settings.value("multicast/hostPort", 5191).toInt(); // AIM aint usin it
+      QString groupIPV4Addr = settings.value("multicast/ipv4addr", "239.255.22.71").toString();
+      notifier = new GroupNotifier(groupIPV4Addr, hostPort);
+      connect(notifier, &GroupNotifier::hostFound, this, &Coordinator::sendHost);
+   }
+
+  return notifier;
 }
