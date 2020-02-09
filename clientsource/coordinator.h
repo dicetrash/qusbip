@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include <QSettings>
+#include <QNetworkDatagram>
 #include "webbridge.h"
 #include "groupnotifier.h"
 #include "udevmonitor.h"
@@ -16,9 +17,10 @@ public:
 public slots:
     void processWeb(const QMap<QString, QVariant> &input);
     void processMonitor(const UdevMonitor::UpdateEvent &input);
-    void processGroup(const QString host);
+    void sendHost(const QNetworkDatagram datagram);
 
 private:
+    GroupNotifier* getNotifier();
     WebBridge* bridge;
     UdevMonitor monitor {};
     bool nameInit {false};

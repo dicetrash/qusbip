@@ -121,15 +121,7 @@ void Coordinator::processWeb(const QVariantMap &input)
        }
     }
     if (0 == process.compare("find")) {
-      const qint16 clientPort = settings.value("multicast/clientPort", 5190).toInt(); // AIM aint usin it
-      const qint16 hostPort = settings.value("multicast/hostPort", 5191).toInt();
-      QString groupIPV4Addr = settings.value("multicast/ipv4addr", "239.255.22.71").toString();
-      if (notifier != nullptr) {
-          notifier = new GroupNotifier(groupIPV4Addr, clientPort, hostPort);
-          connect(notifier, &GroupNotifier::hostFound, this, &Coordinator::processGroup);
-       }
-       notifier->transmit();
-
+       getNotifier()->find();
     }
 }
 
@@ -141,4 +133,25 @@ void Coordinator::processMonitor(const UdevMonitor::UpdateEvent &input)
         {"action", input.action},
         {"device", input.device}
     });
+}
+
+void Coordinator::sendHost(const QNetworkDatagram datagram)
+{
+  bridge->toWeb({
+    {"process", "hostFound"},
+    {"data", datagram.data()},
+    {"host", datagram.senderAddress().toIPv4Address()}
+  });
+}
+
+GroupNotifier *Coordinator::getNotifier()
+{
+  if (notifier == nullptr) {
+      const qint16 hostPort = settings.value("multicast/hostPort", 5191).toInt(); // AIM aint usin it
+      QString groupIPV4Addr = settings.value("multicast/ipv4addr", "239.255.22.71").toString();
+      notifier = new GroupNotifier(groupIPV4Addr, hostPort);
+      connect(notifier, &GroupNotifier::hostFound, this, &Coordinator::sendHost);
+   }
+
+  return notifier;
 }

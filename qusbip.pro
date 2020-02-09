@@ -10,25 +10,21 @@ INCLUDEPATH += $$PWD/ksource
 INCLUDEPATH += $$PWD/clientsource
 
 SOURCES += \
-        clientsource/groupnotifier.cpp \
         ksource/names.c \
         ksource/sysfs_utils.c \
         ksource/usbip_common.c \
-        ksource/usbip_device_driver.c \
-        ksource/usbip_host_common.c \
-        ksource/usbip_host_driver.c \
         ksource/usbip_list.c \
         ksource/usbip_network.c \
         ksource/usbip_port_list.c \
         ksource/usbipc_attach.c \
         ksource/usbipc_detach.c \
+        ksource/vhci_driver.c \
         ksource/utils.c \
         clientsource/coordinator.cpp \
         clientsource/main.cpp \
         clientsource/groupnotifier.cpp \
         clientsource/udevmonitor.cpp \
-        clientsource/webbridge.cpp \
-        ksource/vhci_driver.c
+        clientsource/webbridge.cpp
 
 RESOURCES += qml.qrc
 
@@ -49,16 +45,13 @@ HEADERS += \
     ksource/names.h \
     ksource/sysfs_utils.h \
     ksource/usbip_common.h \
-    ksource/usbip_device_driver.h \
-    ksource/usbip_host_common.h \
-    ksource/usbip_host_driver.h \
     ksource/utils.h \
     ksource/usbip_network.h \
+    ksource/vhci_driver.h \
     clientsource/groupnotifier.h \
     clientsource/coordinator.h \
     clientsource/udevmonitor.h \
-    clientsource/webbridge.h \
-    ksource/vhci_driver.h
+    clientsource/webbridge.h
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += libudev
