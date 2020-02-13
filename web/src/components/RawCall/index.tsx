@@ -24,12 +24,29 @@ const doList = () => {
         'process': 'list',
         host
     });
-
+};
+const doListAdmin = () => {
+    const host = getInput("host");
+    const result = USBIp().publish({
+        'process': 'listout',
+        host
+    });
+};
+const doBindAdmin = () => {
+    const host = getInput("host");
+    const busid = getInput("busid");
+    USBIp().publish({
+        'process': 'bind',
+        host,
+        busid
+    });
 };
 const doPort = () => {
     USBIp().publish({"process": "port"});
 };
-
+const doFindHost = () => {
+    USBIp().publish({'process': 'find'});
+};
 export const RawCall = () => (
 <div>
     <p>Open up the monitor to see anything from this</p>
@@ -42,8 +59,11 @@ export const RawCall = () => (
         <div className="fields">busId: <input type="text" id="busid" /></div>
         <button onClick={doAttach} className="bluebutton">Attach by Host &amp; BusId</button>
         <button onClick={doList} className="bluebutton">List Remote by Host</button>
+        <button onClick={doListAdmin} className="bluebutton">As admin list Remote by Host</button>
+        <button onClick={doBindAdmin} className="bluebutton">Do admin bind by host and bus</button>
     </div>
     <div className="section">
         <button onClick={doPort} className="bluebutton">List Local Imports</button>
+        <button onClick={doFindHost} className="bluebutton">Attempt to find servers</button>
     </div>
 </div>);

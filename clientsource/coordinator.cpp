@@ -2,6 +2,7 @@
 #include "coordinator.h"
 #include "udevmonitor.h"
 #include "config.h"
+#include <QJsonDocument>
 
 extern "C" {
     #include "usbip_common.h"
@@ -156,7 +157,7 @@ void Coordinator::sendHost(const QNetworkDatagram datagram)
 void Coordinator::sendDgram(const QNetworkDatagram datagram) {
   bridge->toWeb({
     {"process", "datagram"},
-    {"data", datagram.data()},
+    {"data", QJsonDocument::fromJson(datagram.data())},
     {"host", datagram.senderAddress().toString()}
   });
 }
