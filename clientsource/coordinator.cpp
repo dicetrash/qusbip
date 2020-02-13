@@ -123,6 +123,15 @@ void Coordinator::processWeb(const QVariantMap &input)
     if (0 == process.compare("find")) {
        getNotifier()->find();
     }
+    if (0 == process.compare("listout")) {
+       auto host(input["host"].toString());
+       getNotifier()->listAdmin(host);
+    }
+    if (0 == process.compare("bind")) {
+        auto host(input["host"].toString());
+        auto bus(input["bus"].toString());
+        getNotifier()->bind(host, bus);
+    }
 }
 
 void Coordinator::processMonitor(const UdevMonitor::UpdateEvent &input)
@@ -140,7 +149,15 @@ void Coordinator::sendHost(const QNetworkDatagram datagram)
   bridge->toWeb({
     {"process", "hostFound"},
     {"data", datagram.data()},
-    {"host", datagram.senderAddress().toIPv4Address()}
+    {"host", datagram.senderAddress().toString()}
+  });
+}
+
+void Coordinator::sendDgram(const QNetworkDatagram datagram) {
+  bridge->toWeb({
+    {"process", "datagram"},
+    {"data", datagram.data()},
+    {"host", datagram.senderAddress().toString()}
   });
 }
 
@@ -151,6 +168,7 @@ GroupNotifier *Coordinator::getNotifier()
       QString groupIPV4Addr = settings.value("multicast/ipv4addr", "239.255.22.71").toString();
       notifier = new GroupNotifier(groupIPV4Addr, hostPort);
       connect(notifier, &GroupNotifier::hostFound, this, &Coordinator::sendHost);
+      connect(notifier, &GroupNotifier::dgramArrived, this, &Coordinator::sendDgram);
    }
 
   return notifier;

@@ -6,7 +6,7 @@
 #include <QJsonDocument>
 
 #define FIND_MESSAGE "usbip-find"
-#define BIND_PORT_ADM "usbip-bind"
+#define BIND_PORT_ADM "usbip-bind-adm"
 #define IM_A_HOST "usbip-host"
 #define LIST_OUT "usbip-list"
 
@@ -20,6 +20,14 @@ GroupNotifier::GroupNotifier(QString groupIpv4Host, qint16 hostPort) : groupAddr
 void GroupNotifier::find()
 {
   listener.writeDatagram(FIND_MESSAGE, groupAddress, hostPort);
+}
+
+void GroupNotifier::listAdmin(QString hostAddr) {
+  listener.writeDatagram(QJsonDocument(
+     QJsonObject({
+       {"message", LIST_OUT }
+     })
+  ).toJson(), QHostAddress(hostAddr), hostPort);
 }
 
 void GroupNotifier::bind(QString hostAddr, QString bus)
@@ -36,13 +44,16 @@ void GroupNotifier::dataRecieved()
 {
   while(listener.hasPendingDatagrams()) {
     QNetworkDatagram dgram(listener.receiveDatagram());
-    if (dgram.data() == FIND_MESSAGE) {
+    auto datac(dgram.data());
+    if (datac.contains(FIND_MESSAGE)
+        || datac.contains(LIST_OUT)
+        || datac.contains(BIND_PORT_ADM)) {
       continue;
-    } else if (dgram.data().contains(IM_A_HOST)) {
+    } else if (datac.contains(IM_A_HOST)) {
       emit hostFound(dgram);
     }
     else {
-      emit list_arrived(dgram);
+      emit dgramArrived(dgram);
     }
   }
 }

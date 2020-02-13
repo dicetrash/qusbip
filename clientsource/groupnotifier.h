@@ -13,9 +13,10 @@ public:
   GroupNotifier(QString groupIpv4Host, qint16 hostPort);
   void find();
   void bind(QString hostAddr, QString bus);
+  void listAdmin(QString hostAddr);
 signals:
   void hostFound(QNetworkDatagram datagram);
-  void list_arrived(QNetworkDatagram datagram);
+  void dgramArrived(QNetworkDatagram datagram);
 public slots:
   void dataRecieved();
 private:
