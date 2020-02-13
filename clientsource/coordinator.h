@@ -18,6 +18,7 @@ public slots:
     void processWeb(const QMap<QString, QVariant> &input);
     void processMonitor(const UdevMonitor::UpdateEvent &input);
     void sendHost(const QNetworkDatagram datagram);
+    void sendDgram(const QNetworkDatagram datagram);
 
 private:
     GroupNotifier* getNotifier();
