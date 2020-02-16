@@ -130,8 +130,8 @@ void Coordinator::processWeb(const QVariantMap &input)
     }
     if (0 == process.compare("bind")) {
         auto host(input["host"].toString());
-        auto bus(input["bus"].toString());
-        getNotifier()->bind(host, bus);
+        auto busid(input["busid"].toString());
+        getNotifier()->bind(host, busid);
     }
 }
 
