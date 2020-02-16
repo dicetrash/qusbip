@@ -4,6 +4,7 @@
 #include <QHostAddress>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QHostInfo>
 
 #define FIND_MESSAGE "usbip-find"
 #define BIND_PORT_ADM "usbip-bind-adm"
@@ -23,21 +24,29 @@ void GroupNotifier::find()
 }
 
 void GroupNotifier::listAdmin(QString hostAddr) {
+  auto hostResolved = QHostInfo::fromName(hostAddr);
+  if (hostResolved.error() != QHostInfo::NoError) {
+    return;
+  }
   listener.writeDatagram(QJsonDocument(
      QJsonObject({
        {"message", LIST_OUT }
      })
-  ).toJson(), QHostAddress(hostAddr), hostPort);
+  ).toJson(), hostResolved.addresses().first(), hostPort);
 }
 
 void GroupNotifier::bind(QString hostAddr, QString bus)
 {
+  auto hostResolved = QHostInfo::fromName(hostAddr);
+  if (hostResolved.error() != QHostInfo::NoError) {
+    return;
+  }
   listener.writeDatagram(QJsonDocument(
      QJsonObject({
        {"message", BIND_PORT_ADM },
        {"bus", bus}
      })
-  ).toJson(), QHostAddress(hostAddr), hostPort);
+  ).toJson(), hostResolved.addresses().first(), hostPort);
 }
 
 void GroupNotifier::dataRecieved()
