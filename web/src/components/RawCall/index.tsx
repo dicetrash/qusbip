@@ -27,7 +27,7 @@ const doList = () => {
 };
 const doListAdmin = () => {
     const host = getInput("host");
-    const result = USBIp().publish({
+    USBIp().publish({
         'process': 'listout',
         host
     });
