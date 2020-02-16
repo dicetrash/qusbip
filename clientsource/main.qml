@@ -21,6 +21,7 @@ Window {
         id: view
         anchors.fill: parent
         url:"qrc:/web/dist/index.html"
+        // url: "http://localhost:8080/"
         webChannel: channel
     }
 }
