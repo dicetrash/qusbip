@@ -3,6 +3,8 @@
 #include "udevmonitor.h"
 #include "config.h"
 #include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 extern "C" {
     #include "usbip_common.h"
@@ -10,6 +12,7 @@ extern "C" {
     #include "usbipc_attach.c"
     #include "usbip_port_list.c"
     #include "usbip_list.c"
+    #include "names.h"
 }
 
 Coordinator::Coordinator(WebBridge *bridge, QObject *parent) : QObject(parent), bridge(bridge)
@@ -155,9 +158,34 @@ void Coordinator::sendHost(const QNetworkDatagram datagram)
 }
 
 void Coordinator::sendDgram(const QNetworkDatagram datagram) {
+  auto dataDevices = QJsonDocument::fromJson(datagram.data());
+  QJsonArray arr;
+  if(dataDevices.isArray()) {
+    for (auto device : dataDevices.array()) {
+        QJsonObject obj(device.toObject());
+        auto prodInt(obj["product"].toString().toUInt(nullptr,16));
+        auto vendInt(obj["vendor"].toString().toUInt(nullptr,16));
+        const char* vendor = names_vendor(vendInt);
+        const char* product = names_product(vendInt, prodInt);
+        arr.append(QJsonObject({
+           {"product", obj["product"].toString()},
+           {"vendor", obj["vendor"].toString()},
+           {"vname", vendor },
+           {"pname", product },
+           {"busid", obj["busid"].toString()}
+        }));
+    }
+    bridge->toWeb({
+      {"process", "datagram"},
+      {"data", arr},
+      {"host", datagram.senderAddress().toString()}
+    });
+    return;
+  }
+
   bridge->toWeb({
     {"process", "datagram"},
-    {"data", QJsonDocument::fromJson(datagram.data())},
+    {"data", dataDevices},
     {"host", datagram.senderAddress().toString()}
   });
 }

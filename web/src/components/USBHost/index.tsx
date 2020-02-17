@@ -9,7 +9,8 @@ type deviceDescriptor = {
     busid: string;
     product: string;
     vendor: string;
-    product_name: string;
+    vname: string;
+    pname: string;
 };
 
 type adminDatagram = {

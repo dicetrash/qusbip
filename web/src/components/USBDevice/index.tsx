@@ -5,12 +5,14 @@ type deviceDescriptor = {
     busid: string;
     product: string;
     vendor: string;
-    product_name: string;
+    vname: string;
+    pname: string;
 };
 
 export const USBDevice = (props: {host: string, device: deviceDescriptor}) => {
     const [bound, setBound] = React.useState(false);
     const {host, device} = props;
+
 
     const bindAndGo = () => {
         USBIp().publish({
@@ -26,10 +28,13 @@ export const USBDevice = (props: {host: string, device: deviceDescriptor}) => {
         setBound(true);
     };
 
+    const vendorName = device.vname || 'unknown vendor';
+    const productName = device.pname || 'unknown product';
+
     return (
       <div>
         <div>Bus: {device.busid}</div>
-        <div>Product: {device.product_name}: ({device.vendor}:{device.product})</div>
+        <div>Product: {vendorName}:{productName} ({device.vendor}:{device.product})</div>
         <Switch checked={bound} onChange={bindAndGo} />
       </div>
     );
