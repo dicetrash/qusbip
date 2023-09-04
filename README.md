@@ -21,9 +21,7 @@ Anyone willing to help by making MRs to improve the project.
 * A server daemon that runs bind / unbind that is discoverable by multicast and attached by client.
 * Platform build docker images for redhat or raspbian.
 
-## Build and Install
-
-### Install
+## Install
 The easiest install method is by package
 
 for hard core arch there is:
@@ -38,6 +36,7 @@ and for arch prebuilt we have:
 
 [qusbip.pkg.tar.xz](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.pkg.tar.xz)
 
+## Build
 
 ### Required development libraries to build
 depending on how you want to build it
