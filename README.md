@@ -28,11 +28,11 @@ for hard core arch there is:
 
 [PKGBUILD](https://github.com/dicetrash/qusbip/blob/master/builds/PKGBUILD)
 
-for debian/ubuntu we have:
+for debian/ubuntu in x86_64 we have:
 
 [qusbip.deb](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.deb)
 
-and for arch prebuilt we have:
+and for arch prebuilt x86_64 we have:
 
 [qusbip.pkg.tar.xz](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.pkg.tar.xz)
 
