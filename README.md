@@ -22,20 +22,6 @@ Anyone willing to help by making MRs to improve the project.
 * Platform build docker images for redhat or raspbian.
 
 ## Build and Install
-### Required development libraries to build
-depending on how you want to build it
-* qmake / make
-* libwrap (tcp-wrappers in arch)
-* libusbip (usbip in arch)
-* libqt5webengine5 (qt5-webengine in arch)
-
-or if you want a clean directory and environment
-* docker
-
-### Build
-I have created build.sh that uses docker to build various different packages
-run it and follow prompt, the package should show up in the base checkout directory
-`build.sh`
 
 ### Install
 The easiest install method is by package
@@ -52,6 +38,21 @@ and for arch prebuilt we have:
 
 [qusbip.pkg.tar.xz](https://github.com/dicetrash/qusbip/releases/download/0.1/qusbip.pkg.tar.xz)
 
+
+### Required development libraries to build
+depending on how you want to build it
+* qmake / make
+* libwrap (tcp-wrappers in arch)
+* libusbip (usbip in arch)
+* libqt5webengine5 (qt5-webengine in arch)
+
+or if you want a clean directory and environment
+* docker
+
+### Build
+I have created build.sh that uses docker to build various different packages
+run it and follow prompt, the package should show up in the base checkout directory
+`build.sh`
 
 ### Developing
 I generally just use QT creator (of which I am of course unaffiliated) to debug the C/C++ side and vscode with `npm run start:dev` which runs a webpack server
